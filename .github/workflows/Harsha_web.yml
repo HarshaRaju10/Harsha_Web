@@ -24,7 +24,8 @@ jobs:
       run: echo "No tests defined"
 
     - name: 🐳 Build Docker image
-      run: docker build -t Harsha_web .
+      run: docker build -t harsha_web .
+      
 
     # Optional: Push to DockerHub (comment if not using)
     # - name: 🔐 Login to DockerHub
