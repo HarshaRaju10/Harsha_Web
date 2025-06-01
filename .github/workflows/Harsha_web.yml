@@ -1,0 +1,35 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout code
+      uses: actions/checkout@v4
+
+    - name: 🟢 Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 📦 Install dependencies
+      run: npm install
+
+    - name: 🧪 (Optional) Run tests
+      run: echo "No tests defined"
+
+    - name: 🐳 Build Docker image
+      run: docker build -t harsha_web .
+      
+
+    # Optional: Push to DockerHub (comment if not using)
+    # - name: 🔐 Login to DockerHub
+    #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+    # - name: 📤 Push Docker image
+    #   run: docker tag hello-username-web yourdockerhub/hello-username-web:latest && docker push yourdockerhub/hello-username-web:latest
