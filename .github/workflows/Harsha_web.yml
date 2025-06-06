@@ -25,11 +25,18 @@ jobs:
 
     - name: 🐳 Build Docker image
       run: docker build -t harsha_web .
-      
 
-    # Optional: Push to DockerHub (comment if not using)
-    # - name: 🔐 Login to DockerHub
-    #   run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+    - name: ☁️ Configure AWS credentials
+      uses: aws-actions/configure-aws-credentials@v2
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-2
 
-    # - name: 📤 Push Docker image
-    #   run: docker tag hello-username-web yourdockerhub/hello-username-web:latest && docker push yourdockerhub/hello-username-web:latest
+    - name: 🚀 Deploy to AWS CloudFormation
+      run: |
+        aws cloudformation deploy \
+          --template-file cloudformation.yml \
+          --stack-name harsha-web-stack \
+          --capabilities CAPABILITY_NAMED_IAM
+
