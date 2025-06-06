@@ -31,5 +31,5 @@ Resources:
           apt install -y docker.io
           systemctl start docker
           systemctl enable docker
-          docker pull harsha102001/harsha-web:latest
+          docker pull harsha10200/harsha-web:latest
           docker run -d -p 80:3000 harsha102001/harsha-web:latest
