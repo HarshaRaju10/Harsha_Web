@@ -1,0 +1,31 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: EC2 Instance for Harsha Web App
+
+Resources:
+  WebAppSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Allow HTTP
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 80
+          ToPort: 80
+          CidrIp: 0.0.0.0/0
+
+  WebAppInstance:
+    Type: AWS::EC2::Instance
+    Properties:
+      ImageId: ami-0b05d988257befbbe  # Ohio region Ubuntu AMI
+      InstanceType: t2.micro
+      KeyName: harsha-key             # Your existing EC2 key pair
+      SecurityGroupIds:
+        - !Ref WebAppSecurityGroup
+      UserData:
+        Fn::Base64: |
+          #!/bin/bash
+          sudo apt update -y
+          sudo apt install -y docker.io git
+          git clone https://github.com/HarshaRaju10/Harsha_Web.git
+          cd Harsha_Web
+          sudo docker build -t harsha-web .
+          sudo docker run -d -p 80:3000 harsha-web
