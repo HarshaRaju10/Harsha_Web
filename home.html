@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Welcome web page</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #fdfbfb, #ebedee);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: 3em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.5em;
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1 id="welcomeText">Hello!</h1>
+  <p>How is your day going?</p>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const username = params.get('username');
+    document.getElementById('welcomeText').innerText = `Hello, ${username}!`;
+  </script>
+</body>
+</html>
+
